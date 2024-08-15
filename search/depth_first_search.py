@@ -1,3 +1,5 @@
+from Stack import Stack
+
 graph = {
   'A' : ['B','G'],
   'B' : ['C', 'D', 'E'],
@@ -11,23 +13,25 @@ graph = {
 }
 
 def dfs(graph, node):
-    visited = []
-    stack = []
+  visited = []
+  pilha = Stack()
 
-    visited.append(node)
-    stack.append(node) 
+  visited.append(node)
+  pilha.push(node) 
 
-    while stack:
-        s = stack.pop()
-        print(s, end = " ")
+  while pilha.is_empty:
+    
+    s = pilha.pop()    
+    print(s, end = " ")
+    
+    for filho in reversed(graph[s]):
+      print(graph[s])
+      if filho not in visited:
+        visited.append(filho)
+        pilha.push(filho)
 
-        # reverse iterate through edge list so results match recursive version
-        for n in reversed(graph[s]):
-            if n not in visited:
-                visited.append(n)
-                stack.append(n)
+              
 
-def main():
-    dfs(graph, 'A')
+dfs(graph, 'A')
 
-main()
+

@@ -1,4 +1,4 @@
-from collections import deque
+from Queue import Queue
 
 graph = {
   'A' : ['B','C'],
@@ -14,24 +14,23 @@ graph = {
 
 def bfs(graph, node):
     visited = []
-    # the video has queue as an array. I changed this to deque because popping the first element is O(1) instead of O(n).
-    # see this link for more: https://wiki.python.org/moin/TimeComplexity.
-    queue = deque()
+    fila = Queue()
 
     visited.append(node)
-    queue.append(node)
+    fila.enqueue(node)
 
-    while queue:
-        # popleft is O(1). for an array, pop(0) is O(n). hence the change to deque from array.
-        s = queue.popleft()
-        print(s, end = " ")
+    while fila.is_empty:
+        
+        s = fila.dequeue()
+        # print(s, end = " ")
 
-        for n in graph[s]:
-            if n not in visited:
-                visited.append(n)
-                queue.append(n)
+        for filho in graph[s]:
+            print(graph[s])
+            if filho not in visited:
+                visited.append(filho)
+                fila.enqueue(filho)
+                #print(visited)
+                
+bfs(graph, 'A')
 
-def main():
-    bfs(graph, 'A')
 
-main()
